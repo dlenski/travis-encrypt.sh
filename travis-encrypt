@@ -24,9 +24,10 @@ value="$1"
 
 # Fetch key
 keyurl="https://api.travis-ci.org/repos/$user/$repo/key"
+authheader="\"Authorization: token <TRAVIS_API_TOKEN>"
 echo "Fetching key from $keyurl ..." >&2
 keyfile=$(mktemp)
-curl -s "$keyurl" > "$keyfile" || {
+curl -s "$keyurl" -H "$authheader" > "$keyfile" || {
     echo "Couldn't fetch key from $keyurl!" >&2
     exit 1
 }
